@@ -4,4 +4,4 @@ This application was based off of @hereismari project which utilizes Flask to co
 
 How to Use
 
-In order to run this application, the conf.json file must be edited so that it contains the ID and Secret which matches your Spotify Application. After changing that, run app.py to start the server. The web address will bring you to a login page that you will need to sign into your Spotify account. 
+In order to run this application, the conf.json file must be edited so that it contains the ID and Secret which matches your Spotify Application. After changing that, run app.py to start the server. The web address will bring you to a login page that you will need to sign into your Spotify account.  
