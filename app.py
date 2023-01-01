@@ -57,7 +57,7 @@ def search_item(search_type, name):
 
 def make_search(search_type, name):
     if search_type not in ['artist', 'album', 'playlist', 'track']:
-        return render_template('index.html')
+        return render_template('index.html') 
 
     data = spotify.search(search_type, name)
     api_url = data[search_type + 's']['href']
