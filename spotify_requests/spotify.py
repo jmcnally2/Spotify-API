@@ -269,7 +269,7 @@ def get_track(track_id):
 def get_several_tracks(list_of_ids):
     url = "{}/?ids={ids}".format(GET_TRACK_ENDPOINT, ids=','.join(list_of_ids))
     resp = requests.get(url)
-    return resp.json()
+    return resp.json() 
 
 # ---------------- 8. RECOMMENDATIONS ------------------------
 
