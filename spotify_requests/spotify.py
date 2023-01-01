@@ -176,6 +176,7 @@ USER_RECENTLY_PLAYED_ENDPOINT = "{}/{}/{}".format(USER_PROFILE_ENDPOINT,
                                                   'player', 'recently-played')
 BROWSE_FEATURED_PLAYLISTS = "{}/{}/{}".format(SPOTIFY_API_URL, 'browse',
                                               'featured-playlists')
+AVAILABLE_GENRE_SEEDS = "{}/{}/{}".format(SPOTIFY_API_URL,'recommendations','available-genre-seeds')
 
 
 # https://developer.spotify.com/web-api/get-users-profile/
@@ -199,7 +200,7 @@ def get_users_top(auth_header, t):
         return None
     url = "{}/{type}".format(USER_TOP_ARTISTS_AND_TRACKS_ENDPOINT, type=t)
     resp = requests.get(url, headers=auth_header)
-    print(resp)
+    return resp.json()
 
 # https://developer.spotify.com/web-api/web-api-personalization-endpoints/get-recently-played/
 def get_users_recently_played(auth_header):
@@ -211,6 +212,11 @@ def get_users_recently_played(auth_header):
 def get_featured_playlists(auth_header):
     url = BROWSE_FEATURED_PLAYLISTS
     resp = requests.get(url, headers=auth_header)
+    return resp.json()
+
+def get_available_genre_seeds(auth_header):
+    url = AVAILABLE_GENRE_SEEDS
+    resp = requests.get(url,headers=auth_header)
     return resp.json()
 
 
@@ -263,4 +269,18 @@ def get_track(track_id):
 def get_several_tracks(list_of_ids):
     url = "{}/?ids={ids}".format(GET_TRACK_ENDPOINT, ids=','.join(list_of_ids))
     resp = requests.get(url)
+    return resp.json()
+
+# ---------------- 8. RECOMMENDATIONS ------------------------
+
+GET_RECOMMENDATION_ENDPOINT = "{}/{}".format(SPOTIFY_API_URL,'recommendations')
+
+# https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recommendations 
+def get_recommended_tracks(auth_header,artists, tracks, genre):
+    url = "{}/?seed_artists={seed_artists}&seed_tracks={seed_tracks}&seed_genres={seed_genre}".format(GET_RECOMMENDATION_ENDPOINT,
+                                                                                                      seed_artists='&seed_artists='.join(artists),
+                                                                                                      seed_tracks='&seed_tracks='.join(tracks),
+                                                                                                      seed_genre=genre)
+                                                                                                     
+    resp = requests.get(url,headers=auth_header)
     return resp.json()

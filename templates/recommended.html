@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="container">
+
+  <div class="mt-1">
+    <h1 style="color:black">  Recommended Tracks</h1>
+  </div>
+
+  <p class="lead" style="color:black">
+    List of recommended tracks based on top artists, tracks, and genres
+  </p>
+
+  <hr class="half-rule-title"/>
+
+  <div class='containter'>
+
+    <h3>{{ recom_songs.message }}</h3>
+    {% for play in recom_songs["tracks"] %}
+      <div class='row'>
+        <a href="{{ play.external_urls.spotify }}">
+
+          <div class='col-sm-8'>
+            <span style="color:black">{{ play.name }} </span>
+          </div>
+
+        </a>
+      </div>
+    {% endfor %}
+
+  </div>
+
+
+</div>
+
+{% endblock %}

@@ -8,6 +8,7 @@
 
 from flask import Flask, request, redirect, g, render_template, session
 from spotify_requests import spotify
+from random import randrange
 
 app = Flask(__name__)
 app.secret_key = 'some key for session'
@@ -36,7 +37,7 @@ def valid_token(resp):
 
 @app.route("/")
 def index():
-    return render_template('index.html')
+    return render_template('profile.html')
 
 
 @app.route('/search/')
@@ -127,5 +128,30 @@ def featured_playlists():
 
     return render_template('profile.html')
 
+@app.route('/recommended')
+def recommended():
+    if 'auth_header' in session:
+        auth_header = session['auth_header']
+
+        tracks = spotify.get_users_top(auth_header,'tracks')
+        top_tracks = [0] * 1
+        for i in range(1):
+            top_tracks[i] = tracks['items'][i]['id']
+        
+        artists = spotify.get_users_top(auth_header,'artists')
+        top_artists = [0] * 1
+        for i in range(1):
+            top_artists[i] = artists['items'][i]['id']
+        
+        top_genre = artists['items'][0]['genres'][randrange(len(artists['items'][0]['genres']))]
+
+        recommendations = spotify.get_recommended_tracks(auth_header,top_artists,top_tracks,top_genre)
+
+        return render_template('recommended.html', recom_songs=recommendations)
+
+
 if __name__ == "__main__":
     app.run(debug=True, port=spotify.PORT)
+
+
+#ERROR IS SOMETHING TO DO WITH THE GET RECOMMENDED TRACKS FUNCTIONS (CHECK URL MAYBE?)
