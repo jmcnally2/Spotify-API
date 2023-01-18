@@ -101,11 +101,19 @@
   margin-top: 10%;
 }
 
-.col-sm-8{
+.col-sm-8 {
   width: 100%
 }
 
-.col-sm-4-artist{
-  width:38%
-} 
+.icon-cog {
+  color:black
+}
 
+i[class*=fa-regular]::before{
+  background:transparent;
+}
+
+.fa-regular .fa-heart {
+  background-color: #6AE368;
+
+}
