@@ -288,7 +288,7 @@ def get_track(track_id):
     url = "{}/{id}".format(GET_TRACK_ENDPOINT, id=track_id)
     resp = requests.get(url)
     return resp.json()
-
+ 
 
 # https://developer.spotify.com/web-api/get-several-tracks/
 def get_several_tracks(list_of_ids):
